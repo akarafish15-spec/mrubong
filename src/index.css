@@ -2,7 +2,8 @@
 
 @font-face {
   font-family: "Aeonic Pro";
-  src: url("https://db.onlinewebfonts.com/t/d95bf2f30035a050142565e03d44da71.woff2") format("woff2");
+  src: url("https://db.onlinewebfonts.com/t/d95bf2f30035a050142565e03d44da71.woff2")
+    format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -10,7 +11,8 @@
 
 @font-face {
   font-family: "Aeonic Pro";
-  src: url("https://db.onlinewebfonts.com/t/49ca791801a1830870b3fc0ced4c87fd.woff2") format("woff2");
+  src: url("https://db.onlinewebfonts.com/t/49ca791801a1830870b3fc0ced4c87fd.woff2")
+    format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -23,7 +25,7 @@
   --color-secondary-fixed: #ffdfa0;
   --color-on-background: #e3e2e0;
   --color-on-tertiary-fixed-variant: #7c2a3a;
-  --color-primary-fixed: #d5e3ff;
+  --color-primary-fixed: #ffdfa0;
   --color-on-error-container: #ffdad6;
   --color-tertiary-fixed-dim: #ffb2bb;
   --color-inverse-on-surface: #2f312f;
@@ -40,10 +42,10 @@
   --color-tertiary-container: #590f21;
   --color-surface-container-highest: #343533;
   --color-secondary: #f6be39;
-  --color-on-primary: #143156;
-  --color-surface-tint: #adc8f5;
+  --color-on-primary: #402d00;
+  --color-surface-tint: #f6be39;
   --color-outline-variant: #43474e;
-  --color-primary: #adc8f5;
+  --color-primary: #f6be39;
   --color-on-secondary: #402d00;
   --color-on-secondary-container: #433000;
   --color-on-tertiary: #5e1324;
@@ -59,11 +61,47 @@
   --color-on-secondary-fixed: #261a00;
   --color-tertiary-fixed: #ffd9dc;
   --color-surface-container-high: #292a29;
-  --color-on-primary-fixed-variant: #2d476e;
+  --color-on-primary-fixed-variant: #5c4300;
   --color-on-primary-container: #7b95c0;
-  --color-primary-fixed-dim: #adc8f5;
+  --color-primary-fixed-dim: #f6be39;
   --color-surface-variant: #343533;
   --color-surface-container-low: #1a1c1a;
+
+  /* Design-specific tokens */
+  --color-gold: #f6be39;
+  --color-navy-deep: #0a1628;
+  --color-navy: #0f1f3d;
+  --color-burgundy: #8b1a2b;
+  --color-ivory: #faf8f5;
+  --color-card: #1a1c1a;
+  --color-muted-foreground: #9ca3af;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-input: rgba(255, 255, 255, 0.1);
+  --color-foreground: #e3e2e0;
+  --color-primary-heading: #f0ede8;
+
+  /* Page hero colors */
+  --color-page-hero-bg: #0a1628;
+  --color-page-hero-text: #faf8f5;
+
+  /* Shadow tokens */
+  --shadow-elegant: 0 4px 24px rgba(0, 0, 0, 0.12);
+  --shadow-gold: 0 4px 24px rgba(246, 190, 57, 0.15);
+  --gradient-hero: linear-gradient(
+    180deg,
+    rgba(10, 22, 40, 0.7) 0%,
+    rgba(10, 22, 40, 0.85) 50%,
+    rgba(18, 20, 18, 0.95) 100%
+  );
+
+  /* Footer tokens (dark defaults) */
+  --color-footer-bg: #0a1628;
+  --color-footer-text: #faf8f5;
+  --color-footer-text-muted: rgba(250, 248, 245, 0.65);
+  --color-footer-text-subtle: rgba(250, 248, 245, 0.5);
+  --color-footer-border: rgba(250, 248, 245, 0.2);
+  --color-footer-social-border: rgba(250, 248, 245, 0.2);
+  --color-footer-divider: rgba(250, 248, 245, 0.1);
 
   --radius-DEFAULT: 0.125rem;
   --radius-lg: 0.25rem;
@@ -128,14 +166,83 @@
 
 body {
   background: radial-gradient(circle at 50% -20%, #0f2d52 0%, #121412 70%);
-  color: #e3e2e0;
+  color: var(--color-foreground);
   overflow-x: hidden;
   font-family: "Aeonic Pro", sans-serif;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #121412; }
-::-webkit-scrollbar-thumb { background: #c59300; border-radius: 10px; }
+.light body,
+body.light {
+  background: radial-gradient(circle at 50% -20%, #f0ede8 0%, #faf8f5 70%);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #121412;
+}
+::-webkit-scrollbar-thumb {
+  background: #c59300;
+  border-radius: 10px;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #e5e0d8;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: #c59300;
+}
+
+/* ── Light theme overrides ── */
+.light {
+  --color-background: #faf8f5;
+  --color-surface: #faf8f5;
+  --color-foreground: #1a1c1a;
+  --color-on-surface: #1a1c1a;
+  --color-card: #ffffff;
+  --color-muted-foreground: #6b7280;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-input: rgba(0, 0, 0, 0.06);
+  --color-primary-heading: #1a1c1a;
+  --color-surface-container: #f0ede8;
+  --color-surface-container-low: #f5f2ee;
+  --color-surface-container-high: #e8e4dd;
+  --color-surface-dim: #f5f2ee;
+  --color-on-surface-variant: #5a5c58;
+  --color-on-background: #1a1c1a;
+  --color-outline-variant: #c4c6c0;
+  --color-outline: #8e9199;
+  --color-surface-variant: #e8e4dd;
+  --shadow-elegant: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-gold: 0 4px 24px rgba(246, 190, 57, 0.1);
+
+  /* Footer light mode */
+  --color-footer-bg: #f0ede8;
+  --color-footer-text: #1a1c1a;
+  --color-footer-text-muted: rgba(26, 28, 26, 0.65);
+  --color-footer-text-subtle: rgba(26, 28, 26, 0.5);
+  --color-footer-border: rgba(0, 0, 0, 0.1);
+  --color-footer-social-border: rgba(0, 0, 0, 0.15);
+  --color-footer-divider: rgba(0, 0, 0, 0.08);
+
+  /* Accent section overrides for light mode */
+  --color-navy-deep: #e8e4dd;
+  --color-navy: #e0dcd5;
+  --color-page-hero-bg: #e8e4dd;
+  --color-page-hero-text: #1a1c1a;
+  --color-ivory: #1a1c1a;
+
+  --gradient-hero: linear-gradient(
+    180deg,
+    rgba(232, 228, 221, 0.4) 0%,
+    rgba(232, 228, 221, 0.6) 50%,
+    rgba(250, 248, 245, 0.9) 100%
+  );
+}
 
 /* Glass utilities */
 .glass-card {
@@ -164,7 +271,11 @@ body {
   position: absolute;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(246, 190, 57, 0.05) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(246, 190, 57, 0.05) 0%,
+    transparent 70%
+  );
   pointer-events: none;
   z-index: 0;
 }
@@ -173,7 +284,7 @@ body {
   position: relative;
 }
 .text-underline-draw::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -4px;
   left: 0;
@@ -187,14 +298,16 @@ body {
 }
 
 .inner-glow-btn {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 15px rgba(197, 147, 0, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 4px 15px rgba(197, 147, 0, 0.3);
 }
 
 .gold-underline {
   position: relative;
 }
 .gold-underline::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
@@ -208,4 +321,115 @@ body {
 .gold-underline:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+/* ── Design utility classes ── */
+
+.container-prose {
+  max-width: var(--spacing-container-max, 1280px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-margin-mobile, 24px);
+  padding-right: var(--spacing-margin-mobile, 24px);
+}
+@media (min-width: 768px) {
+  .container-prose {
+    padding-left: var(--spacing-margin-desktop, 80px);
+    padding-right: var(--spacing-margin-desktop, 80px);
+  }
+}
+
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: #f6be39;
+  color: #402d00;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-hero-hover:hover {
+  background: #e5ac20;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(246, 190, 57, 0.3);
+}
+
+.btn-outline-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: transparent;
+  color: var(--color-ivory);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--color-ivory) 30%, transparent);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #8b1a2b;
+}
+
+.divider-ornament {
+  color: #f6be39;
+  font-size: 1.25rem;
+}
+
+.font-display {
+  font-family: "Aeonic Pro", serif;
+}
+
+/* Animation keyframes */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-float-slow {
+  animation: float-slow 3s ease-in-out infinite;
 }

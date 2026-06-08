@@ -1,10 +1,56 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (function () {
+        var t = localStorage.getItem("theme");
+        if (
+          t === "light" ||
+          (!t && window.matchMedia("(prefers-color-scheme:light)").matches)
+        ) {
+          document.documentElement.classList.add("light");
+        }
+      })();
+    </script>
+
+    <!-- Primary Meta -->
+    <title>UBY'S String Academy | Premier Conservatory of Strings in Lagos, Nigeria</title>
+    <meta name="title" content="UBY'S String Academy | Premier Conservatory of Strings in Lagos" />
+    <meta name="description" content="UBY'S String Academy is a professional music institution in Lagos, Nigeria — raising globally competitive violin, viola and cello musicians through world-class instruction, mentorship and performance excellence." />
+    <meta name="keywords" content="string academy, violin lessons Lagos, viola lessons, cello lessons, music school Nigeria, conservatory Lagos, UBY'S string academy, music education, string instruments, classical music training" />
+    <meta name="author" content="UBY'S String Academy" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UBY'S Academy | The Pinnacle of String Excellence</title>
+    <meta name="theme-color" content="#0a1628" />
+
+    <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
+    <link rel="canonical" href="https://ubysacademy.com" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ubysacademy.com" />
+    <meta property="og:title" content="UBY'S String Academy | Premier Conservatory of Strings" />
+    <meta property="og:description" content="A professional music institution in Lagos, Nigeria — raising globally competitive string musicians through world-class instruction, mentorship and performance excellence." />
+    <meta property="og:image" content="https://ubysacademy.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="UBY'S String Academy — String orchestra in rehearsal" />
+    <meta property="og:site_name" content="UBY'S String Academy" />
+    <meta property="og:locale" content="en_GB" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://ubysacademy.com" />
+    <meta name="twitter:title" content="UBY'S String Academy | Premier Conservatory of Strings" />
+    <meta name="twitter:description" content="A professional music institution in Lagos, Nigeria — raising globally competitive string musicians through world-class instruction, mentorship and performance excellence." />
+    <meta name="twitter:image" content="https://ubysacademy.com/og-image.jpg" />
+    <meta name="twitter:image:alt" content="UBY'S String Academy — String orchestra in rehearsal" />
+
+    <!-- WhatsApp / iOS -->
+    <meta property="og:image:secure_url" content="https://ubysacademy.com/og-image.jpg" />
+
     <link
       href="https://db.onlinewebfonts.com/c/d95bf2f30035a050142565e03d44da71?family=Aeonic+Pro"
       rel="stylesheet"

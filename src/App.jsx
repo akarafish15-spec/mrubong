@@ -1,38 +1,37 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "./lib/ThemeContext";
 import Nav from "./components/Nav";
-import Hero from "./components/Hero";
-import Mastery from "./components/Mastery";
-import Instruments from "./components/Instruments";
-import Performance from "./components/Performance";
-import GlobalStage from "./components/GlobalStage";
-import AuditionBanner from "./components/AuditionBanner";
 import Footer from "./components/Footer";
-import Heritage from "./components/Heritage";
-import Admissions from "./components/Admissions";
-
-function HomePage() {
-  return (
-    <>
-      <Hero />
-      <Mastery />
-      <Instruments />
-      <Performance />
-      <GlobalStage />
-      <AuditionBanner />
-      <Footer />
-    </>
-  );
-}
+import WhatsAppButton from "./components/WhatsAppButton";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Certification from "./pages/Certification";
+import Gallery from "./pages/Gallery";
+import Journey from "./pages/Journey";
+import Team from "./pages/Team";
+import AdminGenerate from "./pages/AdminGenerate";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Nav />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about-us" element={<Heritage />} />
-        <Route path="/admissions" element={<Admissions />} />
-      </Routes>
+      <ThemeProvider>
+        <Nav />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/certification" element={<Certification />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/journey" element={<Journey />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/admin/generate" element={<AdminGenerate />} />
+          </Routes>
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
