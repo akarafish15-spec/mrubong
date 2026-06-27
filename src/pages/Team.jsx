@@ -6,6 +6,7 @@ import toluImg from "../assets/tolu.jpg";
 import tofunmiImg from "../assets/tofunmi.jpg";
 import euniceImg from "../assets/eunice.jpg";
 import bethelImg from "../assets/bethel.jpg";
+import ayodejiImg from "../assets/ayodeji.jpg";
 
 const team = [
   {
@@ -49,6 +50,13 @@ const team = [
     bio: "Captures and shares the academy's story through compelling visual media.",
     featured: true,
     img: toluImg,
+  },
+  {
+    role: "Team Member",
+    name: "Ayodeji Blessing",
+    bio: "A valued member of the UBY Academy team, contributing to the academy's mission of musical excellence.",
+    featured: true,
+    img: ayodejiImg,
   },
 ];
 
