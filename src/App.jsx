@@ -11,6 +11,8 @@ import Gallery from "./pages/Gallery";
 import Journey from "./pages/Journey";
 import Team from "./pages/Team";
 import AdminGenerate from "./pages/AdminGenerate";
+import AcademicStructure from "./pages/AcademicStructure";
+import Enroll from "./pages/Enroll";
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/academic-structure" element={<AcademicStructure />} />
+            <Route path="/enroll" element={<Enroll />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/certification" element={<Certification />} />
             <Route path="/gallery" element={<Gallery />} />

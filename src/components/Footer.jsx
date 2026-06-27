@@ -69,6 +69,11 @@ export default function Footer() {
           <p className="font-display italic text-[var(--gold)]/80">&quot;Discipline. Excellence. Artistry.&quot;</p>
         </div>
       </div>
+      <div style={{ borderTop: "1px solid var(--color-footer-divider)" }}>
+        <div className="container-prose py-4 text-xs leading-relaxed" style={{ color: "var(--color-footer-text-subtle)" }}>
+          Operations: UBY's String Academy currently operates physically on the campus of Joseph Ayo Babalola University, Ikeji-Arakeji, Osun State, Nigeria. Virtual classes are also available; enrollment procedures and tuition fees for online programmes differ from those of the physical programme.
+        </div>
+      </div>
     </footer>
   );
 }

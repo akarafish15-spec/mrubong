@@ -54,14 +54,12 @@ export default function Nav() {
 
         <div className="hidden lg:flex items-center gap-4">
           <ThemeToggle />
-          <a
-            href={SITE.whatsapp}
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            to="/enroll"
             className="btn-hero btn-hero-hover text-sm"
           >
             Enroll Now
-          </a>
+          </Link>
         </div>
 
         <button

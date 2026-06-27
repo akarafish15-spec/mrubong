@@ -2,6 +2,15 @@ import QRCode from "qrcode";
 
 const SECRET = "ubys-string-academy-2025";
 
+export function normalizeCertificateCode(value) {
+  return String(value || "")
+    .trim()
+    .toUpperCase()
+    .replace(/^UBY-?/, "")
+    .replace(/[^A-Z0-9]/g, "")
+    .slice(0, 4);
+}
+
 export async function hashToCode(name, programme, date) {
   const raw = `${name}|${programme}|${date}|${SECRET}`;
   const encoder = new TextEncoder();
@@ -12,13 +21,11 @@ export async function hashToCode(name, programme, date) {
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("")
     .toUpperCase();
-  const a = hashHex.slice(0, 4);
-  const b = hashHex.slice(4, 8);
-  return `UBY-${a}-${b}`;
+  return hashHex.slice(0, 4);
 }
 
 export function makeVerifyUrl(code) {
-  return `https://ubysacademy.com/certification?v=${code}`;
+  return `https://ubysacademy.com/certification?v=${normalizeCertificateCode(code)}`;
 }
 
 export function drawQR(canvas, text, options = {}) {

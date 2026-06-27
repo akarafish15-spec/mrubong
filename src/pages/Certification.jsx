@@ -1,6 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import PageHero from "../components/site/PageHero";
 import {
   Award,
   ShieldCheck,
@@ -10,6 +9,21 @@ import {
   XCircle,
   QrCode,
 } from "lucide-react";
+import PageHero from "../components/site/PageHero";
+import CertificateTemplate from "../components/CertificateTemplate";
+import {
+  drawQR,
+  makeVerifyUrl,
+  normalizeCertificateCode,
+} from "../lib/cert-utils";
+
+const sampleCertificate = {
+  code: "A3F8",
+  name: "Student Name",
+  programme: "Professional Training",
+  date: "2026-06-27",
+  level: "Distinction",
+};
 
 export default function Certification() {
   const [searchParams] = useSearchParams();
@@ -18,6 +32,7 @@ export default function Certification() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [registry, setRegistry] = useState([]);
+  const sampleQrRef = useRef(null);
 
   useEffect(() => {
     fetch("/certificates.json")
@@ -26,12 +41,21 @@ export default function Certification() {
       .catch(() => setRegistry([]));
   }, []);
 
+  useEffect(() => {
+    if (!sampleQrRef.current) return;
+    drawQR(sampleQrRef.current, makeVerifyUrl(sampleCertificate.code), {
+      width: 220,
+    }).catch(() => {});
+  }, []);
+
   const lookup = useCallback(
-    (c) => {
-      if (!c.trim()) return;
+    (value) => {
+      const normalized = normalizeCertificateCode(value);
+      if (!normalized) return;
+
       setLoading(true);
       const found = registry.find(
-        (e) => e.code.toUpperCase() === c.trim().toUpperCase(),
+        (entry) => normalizeCertificateCode(entry.code) === normalized,
       );
       setTimeout(() => {
         setResult(
@@ -56,11 +80,10 @@ export default function Certification() {
     <>
       <PageHero
         eyebrow="Certification"
-        title="Professionally Trained. Internationally Recognised."
-        subtitle="Every UBY'S graduate receives a verifiable certification reflecting their technical, theoretical and performance achievements."
+        title="Professionally Trained. Verifiably Certified."
+        subtitle="Every UBY'S graduate receives a professional training certificate with a four-character verification code."
       />
 
-      {/* Verification Section */}
       <section className="py-16">
         <div className="container-prose max-w-3xl">
           <div className="text-center mb-10">
@@ -77,19 +100,20 @@ export default function Certification() {
               className="mt-3"
               style={{ color: "var(--color-muted-foreground)" }}
             >
-              Enter the verification code found on the certificate or scan the
-              QR code.
+              Enter the four-character verification code printed on the
+              certificate, or scan its QR code.
             </p>
           </div>
 
-          {/* Lookup Form */}
           <form onSubmit={handleSubmit} className="flex gap-3 max-w-lg mx-auto">
             <input
               type="text"
               value={code}
-              onChange={(e) => setCode(e.target.value)}
-              placeholder="e.g. UBY-A3F8-B2C1"
-              className="flex-1 px-5 py-4 rounded-lg font-mono text-lg tracking-wider placeholder:font-sans placeholder:tracking-normal placeholder:text-sm focus:outline-none focus:border-[var(--color-gold)] focus:ring-1 focus:ring-[var(--color-gold)]"
+              onChange={(e) =>
+                setCode(normalizeCertificateCode(e.target.value))
+              }
+              placeholder="e.g. A3F8"
+              className="flex-1 px-5 py-4 rounded-lg font-mono text-lg uppercase tracking-wider placeholder:font-sans placeholder:tracking-normal placeholder:text-sm focus:outline-none focus:border-[var(--color-gold)] focus:ring-1 focus:ring-[var(--color-gold)]"
               style={{
                 background: "var(--color-background)",
                 border: "1px solid var(--color-border)",
@@ -111,10 +135,9 @@ export default function Certification() {
             </button>
           </form>
 
-          {/* Result */}
           {result && (
             <div
-              className="mt-10 rounded-2xl border p-8 md:p-10 animate-fade-up"
+              className="mt-10 rounded-lg border p-8 md:p-10 animate-fade-up"
               style={{
                 background: "var(--color-card)",
                 borderColor:
@@ -142,7 +165,7 @@ export default function Certification() {
                     className="mt-1 text-sm"
                     style={{ color: "var(--color-muted-foreground)" }}
                   >
-                    This is an authentic UBY&apos;S String Academy certificate.
+                    This is an authentic UBY'S String Academy certificate.
                   </p>
                   <div className="mt-8 grid sm:grid-cols-2 gap-4 text-left">
                     {[
@@ -150,9 +173,9 @@ export default function Certification() {
                       { label: "Programme", value: result.programme },
                       { label: "Date Issued", value: result.date },
                       { label: "Level", value: result.level },
-                    ].map((f) => (
+                    ].map((field) => (
                       <div
-                        key={f.label}
+                        key={field.label}
                         className="p-4 rounded-lg"
                         style={{ background: "var(--color-surface-container)" }}
                       >
@@ -160,13 +183,13 @@ export default function Certification() {
                           className="text-xs uppercase tracking-[0.15em]"
                           style={{ color: "var(--color-muted-foreground)" }}
                         >
-                          {f.label}
+                          {field.label}
                         </div>
                         <div
                           className="font-semibold mt-1"
                           style={{ color: "var(--color-primary-heading)" }}
                         >
-                          {f.value}
+                          {field.value}
                         </div>
                       </div>
                     ))}
@@ -177,7 +200,7 @@ export default function Certification() {
                   >
                     <ShieldCheck className="h-4 w-4 text-[var(--color-gold)]" />
                     <span className="text-sm font-mono text-[var(--color-gold)]">
-                      {result.code}
+                      {normalizeCertificateCode(result.code)}
                     </span>
                   </div>
                 </div>
@@ -212,88 +235,16 @@ export default function Certification() {
         </div>
       </section>
 
-      {/* Certificate Preview */}
       <section
         className="py-16"
         style={{ background: "var(--color-surface-container-low)" }}
       >
         <div className="container-prose grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative">
-            <div
-              className="aspect-[4/3] rounded-lg border-4 border-[var(--color-gold)] p-10 relative overflow-hidden"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--color-ivory), var(--color-surface-container))",
-                boxShadow: "var(--shadow-elegant)",
-              }}
-            >
-              <div
-                aria-hidden
-                className="absolute inset-4 border border-[var(--color-gold)]/40 rounded"
-              />
-              <div className="relative text-center h-full flex flex-col">
-                <div
-                  className="eyebrow"
-                  style={{ color: "var(--color-burgundy)" }}
-                >
-                  Certificate of Completion
-                </div>
-                <div
-                  className="font-display text-2xl md:text-3xl mt-3"
-                  style={{ color: "var(--color-on-secondary)" }}
-                >
-                  UBY&apos;S String Academy
-                </div>
-                <div className="divider-ornament mt-2">♪</div>
-                <p
-                  className="mt-6 text-xs uppercase tracking-[0.2em]"
-                  style={{ color: "var(--color-muted-foreground)" }}
-                >
-                  This is to certify
-                </p>
-                <p
-                  className="mt-2 font-display text-3xl italic"
-                  style={{ color: "var(--color-burgundy)" }}
-                >
-                  Student Name
-                </p>
-                <p
-                  className="mt-4 text-sm"
-                  style={{ color: "var(--color-muted-foreground)" }}
-                >
-                  has successfully completed the requirements of the
-                </p>
-                <p
-                  className="mt-1 font-display text-xl"
-                  style={{ color: "var(--color-on-secondary)" }}
-                >
-                  Advanced Violin Programme
-                </p>
-                <div className="flex-1" />
-                <div
-                  className="flex justify-between items-end text-xs mt-6"
-                  style={{ color: "var(--color-muted-foreground)" }}
-                >
-                  <div>
-                    <div className="border-t border-foreground/30 pt-2 px-6">
-                      Director
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <QrCode className="h-8 w-8 mx-auto text-[var(--color-on-secondary)]" />
-                    <div className="font-mono text-[0.55rem] mt-1">
-                      UBY-XXXX-XXXX
-                    </div>
-                  </div>
-                  <div>
-                    <div className="border-t border-foreground/30 pt-2 px-6">
-                      Date
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <CertificateTemplate
+            entry={sampleCertificate}
+            qrRef={sampleQrRef}
+            preview
+          />
 
           <div>
             <h2
@@ -306,33 +257,31 @@ export default function Certification() {
               className="mt-5 leading-relaxed"
               style={{ color: "var(--color-muted-foreground)" }}
             >
-              UBY&apos;S String Academy certifies that each graduating student
-              has met our conservatory-level standards in technique,
-              musicianship, theory and performance. Our certification reflects
-              not only completion but readiness — for further study,
-              professional performance or pedagogy.
+              UBY'S String Academy certifies that each graduating student has
+              met its standards in technique, musicianship, theory, recital
+              performance, and professional development.
             </p>
             <div className="mt-8 space-y-4">
               {[
                 {
                   icon: ShieldCheck,
-                  t: "Verified Achievement",
-                  d: "Each certificate has a unique code and QR link for instant online verification.",
+                  title: "Four-Character Verification",
+                  text: "Each certificate carries a short code and QR link for online authentication.",
                 },
                 {
                   icon: Award,
-                  t: "International Pathways",
-                  d: "Aligned with international examination and certification bodies.",
+                  title: "Global Training Requirement",
+                  text: "Graduates complete introductory music theory studies through OpenLearn and Cursa.",
                 },
                 {
                   icon: FileCheck,
-                  t: "Professional Recognition",
-                  d: "Recognised by partner institutions and performance organisations.",
+                  title: "Recital-Based Assessment",
+                  text: "Certification reflects theory work, structured recitals, and final practical assessment.",
                 },
-              ].map((x) => {
-                const Icon = x.icon;
+              ].map((item) => {
+                const Icon = item.icon;
                 return (
-                  <div key={x.t} className="flex gap-4">
+                  <div key={item.title} className="flex gap-4">
                     <span
                       className="h-10 w-10 rounded-full flex items-center justify-center shrink-0"
                       style={{
@@ -347,13 +296,13 @@ export default function Certification() {
                         className="font-semibold"
                         style={{ color: "var(--color-primary-heading)" }}
                       >
-                        {x.t}
+                        {item.title}
                       </h3>
                       <p
                         className="text-sm"
                         style={{ color: "var(--color-muted-foreground)" }}
                       >
-                        {x.d}
+                        {item.text}
                       </p>
                     </div>
                   </div>

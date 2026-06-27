@@ -5,20 +5,20 @@ import { SITE } from "../lib/site";
 
 const faqs = [
   {
-    q: "What ages do you accept?",
-    a: "We accept students from age 6 through adulthood — beginners and advanced players alike.",
+    q: "What is the registration fee?",
+    a: "The registration fee is N10,000. Physical programme dues are N5,000 per semester.",
   },
   {
-    q: "Do I need to own an instrument before enrolling?",
-    a: "No. We can guide you on appropriate instrument selection and rental options after assessment.",
+    q: "How much is the online programme?",
+    a: "The six-month online programme tuition is N100,000 and is separate from the registration fee.",
   },
   {
-    q: "How often are lessons?",
-    a: "Programmes include weekly one-to-one lessons plus group theory and ensemble sessions.",
+    q: "When do physical classes hold?",
+    a: "Saturday classes run from 9:00 a.m. to 12:00 p.m. Thursday training sessions run from 6:00 p.m. to 7:30 p.m.",
   },
   {
-    q: "Do you offer scholarships?",
-    a: "A limited number of merit-based scholarships are reviewed annually. Contact us for current openings.",
+    q: "Do you offer virtual classes?",
+    a: "Yes. Virtual classes are available, but online enrollment procedures and tuition differ from the physical programme.",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function Contact() {
     const phone = fd.get("phone");
     const instrument = fd.get("instrument");
     const message = fd.get("message");
-    const text = `*New Enquiry from UBY'S Website*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Phone:* ${phone || "—"}%0A*Instrument:* ${instrument}%0A*Message:* ${message}`;
+    const text = `*New Enquiry from UBY'S Website*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Phone:* ${phone || "-"}%0A*Instrument:* ${instrument}%0A*Message:* ${message}`;
     window.open(`https://wa.me/${SITE.whatsappNumber}?text=${text}`, "_blank");
     setSubmitted(true);
   };
@@ -44,12 +44,11 @@ export default function Contact() {
       <PageHero
         eyebrow="Contact"
         title="Begin the Conversation"
-        subtitle="Tell us about you — we'll help you find your place at UBY'S."
+        subtitle="Tell us about you. We'll help you find your place at UBY'S."
       />
 
       <section className="py-24">
         <div className="container-prose grid lg:grid-cols-5 gap-12">
-          {/* Form */}
           <div
             className="lg:col-span-3 border border-[var(--color-border)] rounded-lg p-8 md:p-12"
             style={{
@@ -67,7 +66,8 @@ export default function Contact() {
               className="mt-2 text-sm"
               style={{ color: "var(--color-muted-foreground)" }}
             >
-              We respond within one business day.
+              Contact the Director or Coordinator for payment details and
+              enrollment procedures.
             </p>
             {submitted ? (
               <div className="mt-10 text-center py-12">
@@ -118,11 +118,11 @@ export default function Contact() {
                         color: "var(--color-foreground)",
                       }}
                     >
-                      <option value="">Select instrument…</option>
+                      <option value="">Select instrument...</option>
                       <option>Violin</option>
                       <option>Viola</option>
                       <option>Cello</option>
-                      <option>Not sure — recommend for me</option>
+                      <option>Not sure - recommend for me</option>
                     </select>
                   </div>
                 </div>
@@ -135,8 +135,9 @@ export default function Contact() {
                   </label>
                   <textarea
                     required
+                    name="message"
                     rows={5}
-                    placeholder="Tell us about the student and their goals…"
+                    placeholder="Tell us about the student and their goals..."
                     className="w-full px-4 py-3 rounded-md focus:outline-none focus:border-[var(--color-gold)] focus:ring-1 focus:ring-[var(--color-gold)] resize-none"
                     style={{
                       background: "var(--color-background)",
@@ -155,7 +156,6 @@ export default function Contact() {
             )}
           </div>
 
-          {/* Sidebar */}
           <aside className="lg:col-span-2 space-y-6">
             <div
               className="text-ivory rounded-lg p-8"
@@ -177,10 +177,20 @@ export default function Contact() {
                 </li>
               </ul>
             </div>
+
+            <InfoPanel title="Programme Contacts">
+              <ul className="space-y-3">
+                <li>Coordinator: {SITE.coordinatorPhone}</li>
+                <li>Assistant Coordinator: {SITE.assistantCoordinatorPhone}</li>
+                <li>General Secretary: {SITE.secretaryPhone}</li>
+                <li>Media Officer: {SITE.mediaPhone}</li>
+              </ul>
+            </InfoPanel>
+
             <div className="rounded-lg overflow-hidden border border-[var(--color-border)] aspect-video">
               <iframe
                 title="Map"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=3.30%2C6.45%2C3.45%2C6.55&layer=mapnik"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=4.55%2C7.40%2C4.95%2C7.75&layer=mapnik"
                 className="w-full h-full"
                 loading="lazy"
               />
@@ -189,7 +199,6 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section
         className="py-24"
         style={{ background: "var(--color-surface-container-low)" }}
@@ -205,28 +214,30 @@ export default function Contact() {
             </h2>
           </div>
           <div className="mt-12 space-y-3">
-            {faqs.map((f, i) => (
+            {faqs.map((faq, index) => (
               <div
-                key={f.q}
+                key={faq.q}
                 className="border border-[var(--color-border)] rounded-lg overflow-hidden"
                 style={{ background: "var(--color-card)" }}
               >
                 <button
-                  onClick={() => setOpenIdx(openIdx === i ? null : i)}
+                  onClick={() => setOpenIdx(openIdx === index ? null : index)}
                   className="w-full flex items-center justify-between gap-4 p-5 text-left font-medium"
                   style={{ color: "var(--color-primary-heading)" }}
                 >
-                  <span>{f.q}</span>
+                  <span>{faq.q}</span>
                   <ChevronDown
-                    className={`h-5 w-5 transition-transform ${openIdx === i ? "rotate-180" : ""}`}
+                    className={`h-5 w-5 transition-transform ${
+                      openIdx === index ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
-                {openIdx === i && (
+                {openIdx === index && (
                   <div
                     className="px-5 pb-5 animate-fade-in"
                     style={{ color: "var(--color-muted-foreground)" }}
                   >
-                    {f.a}
+                    {faq.a}
                   </div>
                 )}
               </div>
@@ -258,6 +269,28 @@ function Field({ label, name, type = "text", required }) {
           color: "var(--color-foreground)",
         }}
       />
+    </div>
+  );
+}
+
+function InfoPanel({ title, children }) {
+  return (
+    <div
+      className="rounded-lg p-8 border border-[var(--color-border)]"
+      style={{ background: "var(--color-card)" }}
+    >
+      <h3
+        className="font-display text-2xl"
+        style={{ color: "var(--color-primary-heading)" }}
+      >
+        {title}
+      </h3>
+      <div
+        className="mt-4 text-sm leading-relaxed"
+        style={{ color: "var(--color-muted-foreground)" }}
+      >
+        {children}
+      </div>
     </div>
   );
 }

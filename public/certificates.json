@@ -1,22 +1,22 @@
 [
   {
-    "code": "UBY-A3F8-B2C1",
+    "code": "A3F8",
     "name": "Chiamaka Eze",
-    "programme": "Advanced Violin Programme",
+    "programme": "Professional Training - Violin",
     "date": "2025-08-15",
     "level": "Distinction"
   },
   {
-    "code": "UBY-D7K2-X9M5",
+    "code": "D7K2",
     "name": "David Okonkwo",
-    "programme": "Intermediate Cello Programme",
+    "programme": "Instrument Foundation - Cello",
     "date": "2025-07-20",
     "level": "Merit"
   },
   {
-    "code": "UBY-P4W6-R8V3",
+    "code": "P4W6",
     "name": "Zainab Adekunle",
-    "programme": "Foundation Viola Programme",
+    "programme": "Foundation Music Theory",
     "date": "2025-06-10",
     "level": "Pass"
   }

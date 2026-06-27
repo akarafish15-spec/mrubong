@@ -10,8 +10,8 @@ import bethelImg from "../assets/bethel.jpg";
 const team = [
   {
     role: "Director",
-    name: "Mr. Ubong Isaac",
-    bio: "Visionary director and lead pedagogue guiding the academy's curriculum, ethos and artistic standards. With over a decade of experience, he shapes every student's musical journey.",
+    name: "Isaac Ubong Iniobong",
+    bio: "Director and lead pedagogue guiding the academy's curriculum, ethos and artistic standards from its roots at Joseph Ayo Babalola University.",
     featured: true,
     img: directorImg,
   },

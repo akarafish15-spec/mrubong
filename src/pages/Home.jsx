@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import SectionHeading from "../components/site/SectionHeading";
-import { SITE } from "../lib/site";
 
 import herobg from "../assets/herobg.jpg";
 import violinImg from "../assets/violin-detail.jpg";
@@ -60,25 +59,20 @@ export default function Home() {
             <h1 className="font-display text-5xl md:text-7xl lg:text-[5.25rem] leading-[1.02] mt-6 text-balance">
               Raising{" "}
               <em className="text-[var(--color-gold)] not-italic font-medium">
-                Globally
+                Highly
               </em>
               <br />
-              Competitive{" "}
+              Skilled{" "}
               <span className="italic font-light">String Musicians</span>
             </h1>
             <p className="mt-7 max-w-xl text-lg text-ivory/80 leading-relaxed">
-              Professional training in Violin, Viola and Cello through
-              world-class instruction, mentorship and performance excellence.
+              Professional training in Violin, Viola and Cello through quality
+              music education, performance discipline and excellence.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
-              <a
-                href={SITE.whatsapp}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-hero btn-hero-hover"
-              >
+              <Link to="/enroll" className="btn-hero btn-hero-hover">
                 Enroll Now <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
               <Link
                 to="/contact"
                 className="btn-outline-light hover:bg-white/10"
@@ -90,8 +84,8 @@ export default function Home() {
             <div className="mt-14 grid grid-cols-3 gap-8 max-w-lg">
               {[
                 { v: "3", l: "Instruments" },
-                { v: "7+", l: "Courses" },
-                { v: "100%", l: "Mentor-led" },
+                { v: "3", l: "Grade Levels" },
+                { v: "10", l: "Recitals" },
               ].map((s) => (
                 <div key={s.l}>
                   <div className="font-display text-3xl md:text-4xl text-[var(--color-gold)]">
