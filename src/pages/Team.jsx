@@ -6,7 +6,7 @@ import toluImg from "../assets/tolu.jpg";
 import tofunmiImg from "../assets/tofunmi.jpg";
 import euniceImg from "../assets/eunice.jpg";
 import bethelImg from "../assets/bethel.jpg";
-import ayodejiImg from "../assets/ayodeji.jpg";
+import ayodejiImg from "../assets/ayodeji.jpeg";
 
 const team = [
   {
